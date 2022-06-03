@@ -1,0 +1,27 @@
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    Sepet
+    <ng-container *ngIf="totalPrice > 0">
+        {{ totalPrice | currency: '₺' }} - {{ totalCount }}
+    </ng-container>
+</a>
+<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    <ng-container *ngIf="!cartList || cartList.length === 0">
+        <li>
+            <a class="dropdown-item disabled" href="#">
+                Sepet Boş
+            </a>
+        </li>
+    </ng-container>
+    <ng-container *ngFor="let cart of cartList">
+        <li>
+            <a class="dropdown-item" href="#">
+                {{ cart.product.productName | uppercase }} - {{ cart.count }}
+            </a>
+        </li>
+    </ng-container>
+    <li>
+        <hr class="dropdown-divider">
+    </li>
+    <li><a class="dropdown-item" href="#" routerLink="my-cart">Sepetim</a></li>
+</ul>

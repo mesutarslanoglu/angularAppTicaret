@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.ng-select.is-invalid .ng-select-container {
+    border-color: #dc3545;
+}
+
+.ng-select.is-valid .ng-select-container {
+    border-color: #198754;
+}

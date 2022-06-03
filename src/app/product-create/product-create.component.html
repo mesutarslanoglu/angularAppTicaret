@@ -1,0 +1,201 @@
+<div class="row mt-3">
+    <div class="col-3">
+        <h4 class="page-header">Yeni Ürün Ekle</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <form [formGroup]="form">
+            <div class="mb-3">
+                <label for="categoryId" class="form-label">Ürün Kategorisi</label>
+                <ng-select formControlName="categoryId" [items]="categoryList" bindLabel="categoryName"
+                    bindValue="categoryId" placeholder="Seçiniz" [ngClass]="{
+                        'is-invalid': f['categoryId'].invalid,
+                        'is-valid': f['categoryId'].valid
+                      }">
+                </ng-select>
+            </div>
+            <div class="mb-3">
+                <label for="productName" class="form-label">Ürün Adı</label>
+                <input formControlName="productName" type="text" class="form-control" id="productName" [ngClass]="{
+                    'is-invalid': f['productName'].invalid,
+                    'is-valid': f['productName'].valid
+                  }">
+
+                <ng-container [ngTemplateOutlet]="formAlertTemplate" [ngTemplateOutletContext]="{
+                      'validation': 'required',
+                      'message': 'Bu alan boş bırakılamaz.',
+                      'control': f['productName']
+                  }">
+                </ng-container>
+
+                <ng-container [ngTemplateOutlet]="formAlertTemplate" [ngTemplateOutletContext]="{
+                    'validation': 'minlength',
+                    'message': 'En az üç karakter girilmelidir.',
+                    'control': f['productName']
+                }">
+                </ng-container>
+
+                <ng-container [ngTemplateOutlet]="formAlertTemplate" [ngTemplateOutletContext]="{
+                'validation': 'maxlength',
+                'message': 'En fazla on karakter girilmelidir.',
+                'control': f['productName']
+            }">
+                </ng-container>
+
+            </div>
+            <div class="mb-3">
+                <label for="quantityPerUnit" class="form-label">Ürün Açıklama</label>
+                <input formControlName="quantityPerUnit" type="text" class="form-control" id="quantityPerUnit"
+                    [ngClass]="{
+                    'is-invalid': f['quantityPerUnit'].invalid,
+                    'is-valid': f['quantityPerUnit'].valid
+                  }">
+
+                <ng-container [ngTemplateOutlet]="formAlertTemplate" [ngTemplateOutletContext]="{
+                    'validation': 'required',
+                    'message': 'Bu alan boş bırakılamaz.',
+                    'control': f['quantityPerUnit']
+                }">
+                </ng-container>
+
+                <ng-container [ngTemplateOutlet]="formAlertTemplate" [ngTemplateOutletContext]="{
+                  'validation': 'minlength',
+                  'message': 'En az üç karakter girilmelidir.',
+                  'control': f['quantityPerUnit']
+              }">
+                </ng-container>
+
+                <ng-container [ngTemplateOutlet]="formAlertTemplate" [ngTemplateOutletContext]="{
+              'validation': 'maxlength',
+              'message': 'En fazla yüz karakter girilmelidir.',
+              'control': f['quantityPerUnit']
+          }">
+                </ng-container>
+
+            </div>
+            <div class="mb-3">
+                <label for="unitPrice" class="form-label">Ürün Fiyatı</label>
+                <input formControlName="unitPrice" type="number" class="form-control" id="unitPrice" [ngClass]="{
+                    'is-invalid': f['unitPrice'].invalid,
+                    'is-valid': f['unitPrice'].valid
+                  }">
+
+                <ng-container [ngTemplateOutlet]="formAlertTemplate" [ngTemplateOutletContext]="{
+                    'validation': 'required',
+                    'message': 'Bu alan boş bırakılamaz.',
+                    'control': f['unitPrice']
+                }">
+                </ng-container>
+
+            </div>
+        </form>
+    </div>
+    <div class="col-6">
+        <div class="mb-3">
+            <label for="ngcategoryId" class="form-label">Ürün Kategorisi</label>
+            <ng-select id="ngcategoryId" [items]="categoryList" bindLabel="categoryName" bindValue="categoryId"
+                placeholder="Seçiniz" [(ngModel)]="product.categoryId">
+            </ng-select>
+        </div>
+        <div class="mb-3">
+            <label for="ngproductName" class="form-label">Ürün Adı</label>
+            <input type="text" class="form-control" id="ngproductName" [(ngModel)]="product.productName">
+        </div>
+        <div class="mb-3">
+            <label for="ngquantityPerUnit" class="form-label">Ürün Açıklama</label>
+            <input type="text" class="form-control" id="ngquantityPerUnit" [(ngModel)]="product.quantityPerUnit">
+        </div>
+        <div class="mb-3">
+            <label for="ngunitPrice" class="form-label">Ürün Fiyatı</label>
+            <input type="number" class="form-control" id="ngunitPrice" [(ngModel)]="product.unitPrice">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6 text-end">
+        <button type="button" class="btn btn-primary" (click)="onSaveReactiveForm()" [disabled]="form.invalid">
+            Kaydet (Reactive Form)</button>
+    </div>
+    <div class="col-6 text-end">
+        <button type="button" class="btn btn-primary" (click)="onSaveForm()">
+            Kaydet (Form (ngModel))</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">1</th>
+                    <th scope="col">2</th>
+                    <th scope="col">3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Ürün Kategorisi</th>
+                    <td>{{ form.controls.categoryId.value }}</td>
+                    <td>{{ form.get('categoryId').value }}</td>
+                    <td>{{ f.categoryId.value }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Ürün Adı</th>
+                    <td>{{ form.controls.productName.value }}</td>
+                    <td>{{ form.get('productName').value }}</td>
+                    <td>{{ f.productName.value }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Ürün Açıklaması</th>
+                    <td>{{ form.controls.quantityPerUnit.value }}</td>
+                    <td>{{ form.get('quantityPerUnit').value }}</td>
+                    <td>{{ f.quantityPerUnit.value }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Ürün Fiyatı</th>
+                    <td>{{ form.controls.unitPrice.value }}</td>
+                    <td>{{ form.get('unitPrice').value }}</td>
+                    <td>{{ f.unitPrice.value }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">1</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Ürün Kategorisi</th>
+                    <td>{{ product.categoryId }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Ürün Adı</th>
+                    <td>{{ product.productName }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Ürün Açıklaması</th>
+                    <td>{{ product.quantityPerUnit }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Ürün Fiyatı</th>
+                    <td>{{ product.unitPrice }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #formAlertTemplate let-control="control" let-message="message" let-validation="validation">
+    <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+        <div class="text-danger">
+            {{ message }}
+        </div>
+    </ng-container>
+</ng-template>

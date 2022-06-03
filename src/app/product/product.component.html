@@ -1,0 +1,73 @@
+<div class="row mt-3">
+    <div class="col-3">
+        <h4 class="page-header">Ürünler</h4>
+    </div>
+    <div class="col-9 text-end">
+        <button class="btn btn-primary" type="button" routerLink="/product">Yeni Ürün Ekle (Button)</button>
+        -
+        <button class="btn btn-danger" type="button" (click)="onRedirectAddProductPage()">Yeni Ürün Ekle (Button -
+            Method)</button>
+        -
+        <a class="btn btn-success" href="/product">Yeni Ürün Ekle (a)</a>
+    </div>
+</div>
+
+<ng-container *ngIf="addedProduct">
+    <div class="row mt-2">
+        <div class="col">
+            <div class="alert alert-warning" role="alert">
+                {{ addedProduct }} sepete eklendi.
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<div class="row mt-2">
+    <div class="col">
+        <input type="text" class="form-control" placeholder="Arama yapın..." [(ngModel)]="filteredText">
+    </div>
+</div>
+
+<ng-container *ngIf="filteredText">
+    <div class="row mt-2">
+        <div class="col">
+            <b>{{ filteredText }}</b> için arama yaptınız.
+        </div>
+    </div>
+</ng-container>
+
+<div class="row mt-2">
+    <div class="col">
+
+        <ul class="list-group">
+
+
+            <ng-container *ngIf="(productList | filter:'productName' : filteredText) as result">
+
+                <ng-container *ngFor="let product of productList | filter : 'productName' : filteredText">
+                    <li class="list-group-item">
+                        <button class="btn btn-danger float-end" (click)="removeProduct(product.productId)">
+                            Sil
+                        </button>
+                        <button class="btn btn-warning float-end me-2" routerLink="/product/{{ product.productId }}">
+                            Düzenle
+                        </button>
+                        <button class="btn btn-success float-end me-2" (click)="addToCart(product)">
+                            Sepete Ekle
+                        </button>
+                        <h5><b>{{ product.productName | uppercase }}</b></h5>
+                        <p>{{ product.quantityPerUnit }}</p>
+                        <h6>{{ product.unitPrice | currency: '₺' }}</h6>
+                        <b>KDV'li tutar: {{ product.unitPrice | kdv: 100 | currency: '₺' }}</b>
+                    </li>
+                </ng-container>
+
+                <p *ngIf="result.length === 0">No Result</p>
+
+            </ng-container>
+
+
+
+        </ul>
+    </div>
+</div>
